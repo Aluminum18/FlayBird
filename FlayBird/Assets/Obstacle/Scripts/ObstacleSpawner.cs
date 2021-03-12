@@ -18,6 +18,8 @@ public class ObstacleSpawner : MonoBehaviour
 
     [Header("Config")]
     [SerializeField]
+    private float _initialSpawnDelay;
+    [SerializeField]
     private float _verticleSpace;
     [SerializeField]
     private float _horizonSpace;
@@ -39,16 +41,16 @@ public class ObstacleSpawner : MonoBehaviour
 
     private IEnumerator IE_SpawnObstacles()
     {
-        _waitForNextObstacle = 0f;
+        _waitForNextObstacle = _initialSpawnDelay;
         while (_spawnFlag)
         {
-            if (_waitForNextObstacle >= _spawnInterval)
+            if (_waitForNextObstacle <= 0f)
             {
                 SpawnAnObstaclePair();
-                _waitForNextObstacle = 0f;
+                _waitForNextObstacle = _spawnInterval;
             }
             yield return null;
-            _waitForNextObstacle += Time.deltaTime;
+            _waitForNextObstacle -= Time.deltaTime;
         }
     }
 
@@ -77,6 +79,9 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void UpdateSpawnIntervalAndWaitTime(float newObstacleSpeed)
     {
+        float prevObstacleSpeed = newObstacleSpeed - _currentObstacleSpeed.LastChange;
+        _waitForNextObstacle *= prevObstacleSpeed / newObstacleSpeed;
+
         _spawnInterval = _horizonSpace / newObstacleSpeed;
     }
 
