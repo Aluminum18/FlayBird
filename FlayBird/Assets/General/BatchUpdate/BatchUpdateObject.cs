@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class BatchUpdateObject : MonoBehaviour
 {
-    public bool Active { get; set; }
-
+    private BatchUpdater _batchUpdater;
     public virtual void OnUpdate()
     {
-        if (!Active)
-        {
-            return;
-        }
+
     }
 
     private void Awake()
     {
-        BatchUpdater.Instance.RegisterUpdate(this);
-        Active = true;
+        _batchUpdater = BatchUpdater.Instance;
+        _batchUpdater.RegisterUpdate(this);
+
         OnAwake();
     }
 
     private void OnDestroy()
     {
-        BatchUpdater.Instance.UnregisterUpdate(this);
+        if (_batchUpdater != null)
+        {
+            _batchUpdater.UnregisterUpdate(this);
+        }
+
         DoOnDestroy();
     }
 

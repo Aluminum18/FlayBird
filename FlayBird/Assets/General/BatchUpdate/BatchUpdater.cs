@@ -21,7 +21,7 @@ public class BatchUpdater : MonoSingleton<BatchUpdater>
         for (int i = 0; i < _objects.Count; i++)
         {
             var obj = _objects[i];
-            if (!obj.Active)
+            if (!obj.isActiveAndEnabled)
             {
                 continue;
             }
