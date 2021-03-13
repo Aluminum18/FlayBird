@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52644d92cbc54a844a0755550dbce979, type: 3}
   m_Name: Var_Game_ObstacleSpeed
   m_EditorClassIdentifier: 
-  _value: 0
-  _defaultValue: 0
-  _valueWhenInit: 0
+  _value: 3
+  _defaultValue: 3
+  _valueWhenInit: 1

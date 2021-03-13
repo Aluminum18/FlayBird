@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279f591f5444e2041af226c3a154283d, type: 3}
   m_Name: Var_Game_ScorePerObstacle
   m_EditorClassIdentifier: 
-  _value: 0
-  _defaultValue: 0
-  _valueWhenInit: 0
+  _value: 1
+  _defaultValue: 1
+  _valueWhenInit: 1

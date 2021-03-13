@@ -12,7 +12,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     [Header("Events in")]
     [SerializeField]
-    private GameEvent _onStartGame;
+    private GameEvent _startSpawningOn;
     [SerializeField]
     private GameEvent _onEndGame;
 
@@ -86,7 +86,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void RegisterEvents()
     {
-        _onStartGame.Subcribe(StartSpawningObstacles);
+        _startSpawningOn.Subcribe(StartSpawningObstacles);
         _onEndGame.Subcribe(StopSpawningObstacles);
 
         _currentObstacleSpeed.OnValueChange += UpdateSpawnIntervalAndWaitTime;
@@ -94,7 +94,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void UnregisterEvents()
     {
-        _onStartGame.Unsubcribe(StartSpawningObstacles);
+        _startSpawningOn.Unsubcribe(StartSpawningObstacles);
         _onEndGame.Unsubcribe(StopSpawningObstacles);
 
         _currentObstacleSpeed.OnValueChange -= UpdateSpawnIntervalAndWaitTime;

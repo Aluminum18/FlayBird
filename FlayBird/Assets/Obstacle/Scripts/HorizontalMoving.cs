@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HorizontalMoving : BatchUpdateObject
 {
@@ -8,11 +9,19 @@ public class HorizontalMoving : BatchUpdateObject
     [SerializeField]
     private FloatVariable _currentSpeed;
 
+    [Header("Unity Event")]
+    [SerializeField]
+    private UnityEvent _onPrepareForNewGame;
+
     [Header("Events in")]
     [SerializeField]
     private GameEvent _onGameEnd;
     [SerializeField]
     private GameEvent _onGameRestart;
+
+    [Header("Config")]
+    [SerializeField]
+    private float _moveSpeedFactor = 1f;
     
     public bool Moving { get; set; }
 
@@ -23,7 +32,7 @@ public class HorizontalMoving : BatchUpdateObject
             return;
         }
 
-        transform.position += Vector3.left * _currentSpeed.Value * Time.deltaTime;
+        transform.position += Vector3.left * _currentSpeed.Value * _moveSpeedFactor * Time.deltaTime;
     }
 
     private void StopMove(object[] args)
@@ -33,7 +42,7 @@ public class HorizontalMoving : BatchUpdateObject
 
     private void PrepareForNewGame(object[] args)
     {
-        gameObject.SetActive(false);
+        _onPrepareForNewGame.Invoke();
     }
 
     public void OnEnable()

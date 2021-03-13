@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AreaRestrictObject : BatchUpdateObject
 {
@@ -20,9 +21,9 @@ public class AreaRestrictObject : BatchUpdateObject
     [SerializeField]
     private OutOfAreaAction _outOfAreaAction;
 
-    [Header("Events out")]
+    [Header("Unity Events")]
     [SerializeField]
-    private GameEvent _onOutOfRestrictArea;
+    private UnityEvent _onOutOfRestrictArea;
 
     private static Camera _mainCam;
     private static Camera MainCam
@@ -117,13 +118,13 @@ public class AreaRestrictObject : BatchUpdateObject
                 break;
             case OutOfAreaAction.Event:
                 {
-                    _onOutOfRestrictArea?.Raise();
+                    _onOutOfRestrictArea.Invoke();
                     break;
                 }
             case OutOfAreaAction.DisableAndEvent:
                 {
                     gameObject.SetActive(false);
-                    _onOutOfRestrictArea?.Raise();
+                    _onOutOfRestrictArea?.Invoke();
                     break;
                 }
         }

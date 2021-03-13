@@ -92,11 +92,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentObstacleSpeed: {fileID: 11400000, guid: 2f97c10677c687649a96ad99a0683b55, type: 2}
   _mainCam: {fileID: 0}
-  _onStartGame: {fileID: 11400000, guid: 5d707579efe37f6499bf3829923b7dab, type: 2}
+  _startSpawningOn: {fileID: 11400000, guid: 5d707579efe37f6499bf3829923b7dab, type: 2}
   _onEndGame: {fileID: 11400000, guid: fff9934082f6e4443ac4d9ea818e59e4, type: 2}
   _initialSpawnDelay: 0
   _verticalSpace: 3
-  _horizonSpace: 3
+  _horizonSpace: 7
   _obstaclePool: {fileID: 1008289876798814141}
   _scoreBoxPool: {fileID: 1954105031843152353}
 --- !u!1 &3069727829047994774

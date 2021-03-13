@@ -32,6 +32,11 @@ public class BaseScriptableObjectVariable <T> : ScriptableObject
         }
     }
 
+    public void ResetToDefault()
+    {
+        _value = _defaultValue;
+    }
+
     protected virtual bool IsSetNewValue(T value)
     {
         return true;

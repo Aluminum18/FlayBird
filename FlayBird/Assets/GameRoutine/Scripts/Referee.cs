@@ -9,6 +9,12 @@ public class Referee : MonoBehaviour
     private IntegerVariable _currentScore;
     [SerializeField]
     private IntegerVariable _scorePerObstacle;
+    [SerializeField]
+    private IntegerVariable _speedUpAfterScores;
+    [SerializeField]
+    private FloatVariable _accelaration;
+    [SerializeField]
+    private FloatVariable _obstacleSpeed;
 
     [Header("Events in")]
     [SerializeField]
@@ -29,6 +35,8 @@ public class Referee : MonoBehaviour
     public void PreGame()
     {
         _currentScore.Value = 0;
+        _obstacleSpeed.ResetToDefault();
+
         _onPreGame.Raise();
     }
 
@@ -59,6 +67,16 @@ public class Referee : MonoBehaviour
     private void Score(params object[] args)
     {
         _currentScore.Value += _scorePerObstacle.Value;
+
+        if (_currentScore.Value < _speedUpAfterScores.Value)
+        {
+            return;
+        }
+
+        if (_currentScore.Value % _speedUpAfterScores.Value == 0)
+        {
+            _obstacleSpeed.Value += _accelaration.Value;
+        }
     }
 
     private void Awake()
