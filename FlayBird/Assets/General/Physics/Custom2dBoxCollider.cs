@@ -26,7 +26,7 @@ public class Custom2dBoxCollider : MonoBehaviour
     {
         get
         {
-            return _xMin;
+            return transform.position.x - _width / 2f;
         }
     }
 
@@ -34,7 +34,7 @@ public class Custom2dBoxCollider : MonoBehaviour
     {
         get
         {
-            return _xMax;
+            return transform.position.x + _width / 2f;
         }
     }
 
@@ -42,7 +42,7 @@ public class Custom2dBoxCollider : MonoBehaviour
     {
         get
         {
-            return _yMin;
+            return transform.position.y - _height / 2f;
         }
     }
 
@@ -50,7 +50,7 @@ public class Custom2dBoxCollider : MonoBehaviour
     {
         get
         {
-            return _yMax;
+            return transform.position.y + _height / 2f;
         }
     }
 
@@ -58,11 +58,10 @@ public class Custom2dBoxCollider : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        _xMin = transform.position.x - _width / 2f;
-        _xMax = transform.position.x + _width / 2f;
-
-        _yMin = transform.position.y - _height / 2f;
-        _yMax = transform.position.y + _height / 2f;
+        _xMin = XMin;
+        _xMax = XMax;
+        _yMin = YMin;
+        _yMax = YMax;
 
         Vector3 A = new Vector3(_xMin, _yMin, 0f);
         Vector3 B = new Vector3(_xMin, _yMax, 0f);
@@ -101,12 +100,6 @@ public class Custom2dBoxCollider : MonoBehaviour
 
     private void Awake()
     {
-        _xMin = transform.position.x -  _width / 2f;
-        _xMax = transform.position.x + _width / 2f;
-
-        _yMin = transform.position.y - _height / 2f;
-        _yMax = transform.position.y + _height / 2f;
-
         _customPhysics = CustomPhysics.Instance;
         _customPhysics.RegisterPhysicsUpdate(this);
     }

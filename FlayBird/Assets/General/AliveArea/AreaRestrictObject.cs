@@ -6,6 +6,8 @@ public class AreaRestrictObject : BatchUpdateObject
 {
     [Header("Config")]
     [SerializeField]
+    private AreaCenter _centerMode;
+    [SerializeField]
     private Vector2 _restrictAreaCenter;
     [SerializeField]
     private float _width;
@@ -22,33 +24,23 @@ public class AreaRestrictObject : BatchUpdateObject
     [SerializeField]
     private GameEvent _onOutOfRestrictArea;
 
+    private static Camera _mainCam;
+    private static Camera MainCam
+    {
+        get
+        {
+            if (_mainCam == null)
+            {
+                _mainCam = Camera.main;
+            }
+            return _mainCam;
+        }
+    }
+
     private float _xMin;
     private float _xMax;
     private float _yMin;
     private float _yMax;
-
-    private void OnDrawGizmosSelected()
-    {
-        CalculateBoundary();
-
-        Vector3 A = new Vector3(_xMin, _yMin, 0f);
-        Vector3 B = new Vector3(_xMin, _yMax, 0f);
-        Vector3 C = new Vector3(_xMax, _yMax, 0f);
-        Vector3 D = new Vector3(_xMax, _yMin, 0f);
-
-        Gizmos.color = Color.green;
-        if (_verticalRestrict)
-        {
-            Gizmos.DrawLine(A, D);
-            Gizmos.DrawLine(B, C);
-        }
-
-        if (_horizonRestrict)
-        {
-            Gizmos.DrawLine(A, B);
-            Gizmos.DrawLine(C, D);
-        }
-    }
 
     public override void OnUpdate()
     {
@@ -77,6 +69,12 @@ public class AreaRestrictObject : BatchUpdateObject
 
     private void CalculateBoundary()
     {
+        if (_centerMode == AreaCenter.CenterOfCameraView)
+        {
+            _restrictAreaCenter.x = MainCam.transform.position.x;
+            _restrictAreaCenter.y = MainCam.transform.position.y;
+        }
+
         _xMin = _restrictAreaCenter.x - _width / 2f;
         _xMax = _restrictAreaCenter.x + _width / 2f;
 
@@ -130,6 +128,35 @@ public class AreaRestrictObject : BatchUpdateObject
                 }
         }
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        CalculateBoundary();
+
+        Vector3 A = new Vector3(_xMin, _yMin, 0f);
+        Vector3 B = new Vector3(_xMin, _yMax, 0f);
+        Vector3 C = new Vector3(_xMax, _yMax, 0f);
+        Vector3 D = new Vector3(_xMax, _yMin, 0f);
+
+        Gizmos.color = Color.green;
+        if (_verticalRestrict)
+        {
+            Gizmos.DrawLine(A, D);
+            Gizmos.DrawLine(B, C);
+        }
+
+        if (_horizonRestrict)
+        {
+            Gizmos.DrawLine(A, B);
+            Gizmos.DrawLine(C, D);
+        }
+    }
+}
+
+public enum AreaCenter
+{
+    CenterOfCameraView,
+    Custom
 }
 
 public enum OutOfAreaAction
