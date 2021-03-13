@@ -20,7 +20,7 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField]
     private float _initialSpawnDelay;
     [SerializeField]
-    private float _verticleSpace;
+    private float _verticalSpace;
     [SerializeField]
     private float _horizonSpace;
     [SerializeField]
@@ -31,7 +31,7 @@ public class ObstacleSpawner : MonoBehaviour
     private float _waitForNextObstacle;
 
     private Vector3 _obstaclePos = Vector3.zero;
-    private float _totalVerticleSpace;
+    private float _totalVerticalSpace;
 
     private void StartSpawningObstacles(object[] args)
     {
@@ -60,10 +60,10 @@ public class ObstacleSpawner : MonoBehaviour
         var obstacleBot = _pool.GetObject();
 
         _obstaclePos.x = obstacleTop.transform.position.x;
-        _obstaclePos.y = Random.Range(_verticleSpace, _totalVerticleSpace);
+        _obstaclePos.y = Random.Range(_verticalSpace, _totalVerticalSpace);
 
         obstacleTop.transform.position = _obstaclePos;
-        obstacleBot.transform.position = _obstaclePos + Vector3.down * (_verticleSpace + _totalVerticleSpace);
+        obstacleBot.transform.position = _obstaclePos + Vector3.down * (_verticalSpace + _totalVerticalSpace);
 
         var topObstacleMoving = obstacleTop.GetComponent<ObstacleMoving>();
         topObstacleMoving.Moving = true;
@@ -105,7 +105,7 @@ public class ObstacleSpawner : MonoBehaviour
     {
         RegisterEvents();
 
-        _totalVerticleSpace = _mainCam.orthographicSize * 2f;
+        _totalVerticalSpace = _mainCam.orthographicSize * 2f;
 
         _spawnInterval = _horizonSpace / _currentObstacleSpeed.Value;
     }
