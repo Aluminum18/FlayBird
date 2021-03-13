@@ -24,7 +24,9 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField]
     private float _horizonSpace;
     [SerializeField]
-    private ObjectPool _pool;
+    private ObjectPool _obstaclePool;
+    [SerializeField]
+    private ObjectPool _scoreBoxPool;
 
     private bool _spawnFlag = false;
     private float _spawnInterval;
@@ -56,8 +58,8 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void SpawnAnObstaclePair()
     {      
-        var obstacleTop = _pool.GetObject();
-        var obstacleBot = _pool.GetObject();
+        var obstacleTop = _obstaclePool.GetObject();
+        var obstacleBot = _obstaclePool.GetObject();
 
         _obstaclePos.x = obstacleTop.transform.position.x;
         _obstaclePos.y = Random.Range(_verticalSpace, _totalVerticalSpace);
@@ -65,11 +67,8 @@ public class ObstacleSpawner : MonoBehaviour
         obstacleTop.transform.position = _obstaclePos;
         obstacleBot.transform.position = _obstaclePos + Vector3.down * (_verticalSpace + _totalVerticalSpace);
 
-        var topObstacleMoving = obstacleTop.GetComponent<ObstacleMoving>();
-        topObstacleMoving.Moving = true;
-
-        var botObstacleMoving = obstacleBot.GetComponent<ObstacleMoving>();
-        botObstacleMoving.Moving = true;
+        var scoreBox = _scoreBoxPool.GetObject();
+        scoreBox.transform.position += Vector3.right * obstacleTop.GetComponent<Custom2dBoxCollider>().Width / 2f;
     }
 
     private void StopSpawningObstacles(object[] args)

@@ -43,9 +43,19 @@ public class CustomPhysics : MonoSingleton<CustomPhysics>
 
     private void Check1ToOthers(Custom2dBoxCollider checkedCollider)
     {
+        if (!checkedCollider.isActiveAndEnabled)
+        {
+            return;
+        }
+
         for (int i = 0; i < _colliders.Count; i++)
         {
             var other = _colliders[i];
+
+            if (!other.isActiveAndEnabled)
+            {
+                continue;
+            }
 
             if (_checkedCollider.gameObject.GetInstanceID() == other.gameObject.GetInstanceID())
             {

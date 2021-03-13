@@ -15,8 +15,8 @@ public class FloatVariableEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        DrawDefaultInspector();
         serializedObject.Update();
-        EditorGUILayout.PropertyField(_value);
 
         var myTarget = (FloatVariable)target;
         myTarget.Value = _value.floatValue;

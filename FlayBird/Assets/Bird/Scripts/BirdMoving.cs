@@ -7,6 +7,8 @@ public class BirdMoving : BatchUpdateObject
 {
     [Header("Config")]
     [SerializeField]
+    private Vector3 _startPos;
+    [SerializeField]
     private float _flapForce;
     [SerializeField]
     private float _gravity;
@@ -17,11 +19,15 @@ public class BirdMoving : BatchUpdateObject
     [SerializeField]
     private GameEvent _onBirdFlap;
     [SerializeField]
+    private GameEvent _onPreGame;
+    [SerializeField]
     private GameEvent _onGameStart;
 
     [Header("Unity Events")]
     [SerializeField]
     private UnityEvent _onFlapped;
+    [SerializeField]
+    private UnityEvent _onMovedToStartPoint;
 
     private float _currentVelocity = 0f;
     private bool _flappable;
@@ -44,6 +50,17 @@ public class BirdMoving : BatchUpdateObject
         _onFlapped.Invoke();
     }
 
+    private void Prepare(params object[] args)
+    {
+        _underGravity = false;
+        _flappable = true;
+
+        transform.position = _startPos;
+        _currentVelocity = 0f;
+
+        _onMovedToStartPoint.Invoke();
+    }
+
     private void ApplyGravity(params object[] args)
     {
         _underGravity = true;
@@ -62,14 +79,17 @@ public class BirdMoving : BatchUpdateObject
 
     private void OnEnable()
     {
-        _flappable = true;
         _onBirdFlap.Subcribe(Flap);
+
+        _onPreGame.Subcribe(Prepare);
         _onGameStart.Subcribe(ApplyGravity);
     }
 
     private void OnDisable()
     {
         _onBirdFlap.Unsubcribe(Flap);
+
+        _onPreGame.Unsubcribe(Prepare);
         _onGameStart.Unsubcribe(ApplyGravity);
     }
 }

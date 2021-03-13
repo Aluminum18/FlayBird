@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2168368596066206547}
   - component: {fileID: 5925051473984062766}
   - component: {fileID: 4166418366013683813}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,8 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee43585f017dcb4187ec5adb64d742f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentObstacleSpeed: {fileID: 11400000, guid: 2f97c10677c687649a96ad99a0683b55, type: 2}
+  _currentSpeed: {fileID: 11400000, guid: 2f97c10677c687649a96ad99a0683b55, type: 2}
   _onGameEnd: {fileID: 11400000, guid: fff9934082f6e4443ac4d9ea818e59e4, type: 2}
+  _onGameRestart: {fileID: 11400000, guid: c4efa6990e5aacd439e0f99107fd00b6, type: 2}
 --- !u!114 &5925051473984062766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63e16c17a92b01469da7d9521493079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _centerMode: 0
   _restrictAreaCenter: {x: 0, y: 0}
   _width: 20.88
   _height: 10

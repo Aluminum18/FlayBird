@@ -90,7 +90,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 143fb1794363d214b89e0c79391419ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -112,8 +112,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5910318111711957138}
   - component: {fileID: 5910318111711957139}
-  - component: {fileID: 5910318111711957136}
   - component: {fileID: 4384999069320895638}
+  - component: {fileID: 5910318111711957136}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Untagged
@@ -148,6 +148,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f99b6e874d140647997fa68df586b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitBy:
+    serializedVersion: 2
+    m_Bits: 128
+  _scoredBy:
+    serializedVersion: 2
+    m_Bits: 64
+  _onBirdScored:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 50230e94480bd0e4db533d11afd79629, type: 2}
+        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onBirdHit:
     m_PersistentCalls:
       m_Calls:
@@ -175,24 +196,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5910318111711957136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5910318111711957137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f5c4a961cc1cb642a038627c4bdb3b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _width: 0.5
-  _height: 0.5
-  _xMin: -3
-  _xMax: -2.5
-  _yMin: -0.5188966
-  _yMax: -0.01889655
+      - m_Target: {fileID: 11400000, guid: 211fba757f6679049a1f4e227becf423, type: 2}
+        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5910318111711957136}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4384999069320895638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,10 +232,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43144b879f9af5649810392f7bbf588b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startPos: {x: -4, y: 0, z: 0}
   _flapForce: 6
   _gravity: 9.8
   _underGravity: 0
   _onBirdFlap: {fileID: 11400000, guid: 7e58bad0b57af2947a1c4691219fe481, type: 2}
+  _onPreGame: {fileID: 11400000, guid: 3dda8272d78c812488f0031770dcbe3c, type: 2}
   _onGameStart: {fileID: 11400000, guid: 5d707579efe37f6499bf3829923b7dab, type: 2}
   _onFlapped:
     m_PersistentCalls:
@@ -225,3 +254,48 @@ MonoBehaviour:
           m_StringArgument: Flap
           m_BoolArgument: 0
         m_CallState: 2
+  _onMovedToStartPoint:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1684058606339223645}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: Play
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Fly
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5910318111711957136}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &5910318111711957136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5910318111711957137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f5c4a961cc1cb642a038627c4bdb3b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _width: 0.5
+  _height: 0.5
+  _xMin: -4.25
+  _xMax: -3.75
+  _yMin: -0.25
+  _yMax: 0.25

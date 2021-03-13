@@ -22,6 +22,21 @@ public class Custom2dBoxCollider : MonoBehaviour
     [SerializeField]
     private HashSet<int> _intersectings = new HashSet<int>();
 
+    public float Width
+    {
+        get
+        {
+            return _width;
+        }
+    }
+    public float Heigth
+    {
+        get
+        {
+            return _height;
+        }
+    }
+
     public float XMin
     {
         get
@@ -29,7 +44,6 @@ public class Custom2dBoxCollider : MonoBehaviour
             return transform.position.x - _width / 2f;
         }
     }
-
     public float XMax
     {
         get
@@ -45,7 +59,6 @@ public class Custom2dBoxCollider : MonoBehaviour
             return transform.position.y - _height / 2f;
         }
     }
-
     public float YMax
     {
         get

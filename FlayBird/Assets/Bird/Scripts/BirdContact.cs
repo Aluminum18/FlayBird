@@ -5,17 +5,34 @@ using UnityEngine.Events;
 
 public class BirdContact : MonoBehaviour
 {
+    [Header("Config")]
+    [SerializeField]
+    private LayerMask _hitBy;
+    [SerializeField]
+    private LayerMask _scoredBy;
+
+    [SerializeField]
+    private UnityEvent _onBirdScored;
     [SerializeField]
     private UnityEvent _onBirdHit;
 
     public void OnCollideInWith(Custom2dBoxCollider other)
     {
-        Debug.Log("BirdTrigger in");
+        if ((1 << other.gameObject.layer & _hitBy) == 0)
+        {
+            return;
+        }
+
         _onBirdHit.Invoke();
     }
 
     public void OnCollideOutWith(Custom2dBoxCollider other)
     {
-        Debug.Log("BirdTrigger out");
+        if ((1 << other.gameObject.layer & _scoredBy) == 0)
+        {
+            return;
+        }
+
+        _onBirdScored.Invoke();
     }
 }

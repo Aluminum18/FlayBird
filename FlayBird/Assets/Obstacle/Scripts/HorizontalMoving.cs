@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleMoving : BatchUpdateObject
+public class HorizontalMoving : BatchUpdateObject
 {
     [Header("Reference")]
     [SerializeField]
-    private FloatVariable _currentObstacleSpeed;
+    private FloatVariable _currentSpeed;
 
     [Header("Events in")]
     [SerializeField]
     private GameEvent _onGameEnd;
+    [SerializeField]
+    private GameEvent _onGameRestart;
     
     public bool Moving { get; set; }
 
@@ -21,7 +23,7 @@ public class ObstacleMoving : BatchUpdateObject
             return;
         }
 
-        transform.position += Vector3.left * _currentObstacleSpeed.Value * Time.deltaTime;
+        transform.position += Vector3.left * _currentSpeed.Value * Time.deltaTime;
     }
 
     private void StopMove(object[] args)
@@ -29,13 +31,21 @@ public class ObstacleMoving : BatchUpdateObject
         Moving = false;
     }
 
-    public override void OnAwake()
+    private void PrepareForNewGame(object[] args)
     {
-        _onGameEnd.Subcribe(StopMove);
+        gameObject.SetActive(false);
     }
 
-    private void OnDestroy()
+    public void OnEnable()
+    {
+        Moving = true;
+        _onGameEnd.Subcribe(StopMove);
+        _onGameRestart.Subcribe(PrepareForNewGame);
+    }
+
+    private void OnDisable()
     {
         _onGameEnd.Unsubcribe(StopMove);
+        _onGameRestart.Unsubcribe(PrepareForNewGame);
     }
 }
