@@ -233,8 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startPos: {x: -4, y: 0, z: 0}
-  _flapForce: 6
-  _gravity: 9.8
+  _flapForce: 5
+  _gravity: 11.76
   _underGravity: 0
   _onBirdFlap: {fileID: 11400000, guid: 7e58bad0b57af2947a1c4691219fe481, type: 2}
   _onPreGame: {fileID: 11400000, guid: 3dda8272d78c812488f0031770dcbe3c, type: 2}
